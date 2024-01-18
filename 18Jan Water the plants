@@ -1,0 +1,68 @@
+/*
+A gallery with plants is divided into n parts, numbered 0, 1, 2, 3, ..., n-1. There are provisions for attaching water sprinklers in every division. 
+A sprinkler with range x at division i can water all divisions from i-x to i+x.
+Given an array gallery[] consisting of n integers, where gallery[i] is the range of the sprinkler at partition i (a power of -1 indicates no sprinkler attached), return the minimum number of sprinklers that need to be turned on to water the entire gallery. If there is no possible way to water the full length using the given sprinklers, print -1.
+
+Example 1:
+Input:
+n = 6
+gallery[] = {-1, 2, 2, -1, 0, 0}
+Output:
+2
+Explanation: 
+Sprinklers at index 2 and 5
+can water the full gallery, span of
+sprinkler at index 2 = [0,4] and span
+of sprinkler at index 5 = [5,5].*/
+
+
+import java.util.*;
+import java.io.*;
+//User function Template for Java
+class Solution
+{
+    int min_sprinklers(int gallery[], int n)
+    {
+        /*range in which sprinklers are attached
+        for every position,it will store the right end of water sprinkle
+        if i position is left*/
+        
+        int[] range=new int[n];
+        Arrays.fill(range,-1);
+        
+        for(int i=0;i<n;i++)
+        {
+            //if no sprinkler then no left or right end
+            if(gallery[i]==-1)
+               continue;
+               
+            //st->left end of the current sprinkler in the range
+            //end->right end of the current sprinkler in the range
+            int st=Math.max(0,i-gallery[i]);//as if on minus got -ve index then get 0
+            int end=Math.min(n-1,i+gallery[i]);
+            //store the maximum right end for left end
+            for(int j=st;j<=end;++j){
+            range[j]=Math.max(range[j],end);
+            }
+        }
+        
+        //res->count of sprinklers turned on
+        //cur->currently, we are inside a range which end on cur
+        int res=0,cur=-1;
+        
+        //iterating in range
+        for(int i=0;i<n;i++)
+        {
+            if(range[i]==-1)
+               return -1;//It's not possible to cover the entire gallery
+               
+            //if we get out of current range of active sprinkler
+            //move to next sprinkler incrementing the cnt of res
+            if(i>cur){
+                ++res;
+                cur=range[i];
+            }
+        }
+        return res;//return the count of active sprinklers
+    }
+}
