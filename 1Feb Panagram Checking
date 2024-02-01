@@ -1,0 +1,63 @@
+/*
+Given a string s check if it is "Panagram" or not.
+A "Panagram" is a sentence containing every letter in the English Alphabet.
+
+Example 1:
+Input:
+s = "Bawds jog, flick quartz, vex nymph"
+Output: 
+1
+Explanation: 
+In the given input, there
+are all the letters of the English
+alphabet. Hence, the output is 1.
+*/
+
+//Efficient method
+class Solution
+{
+    //Function to check if a string is Pangram or not.
+    public static boolean checkPangram  (String s) {
+       int [] pos=new int[26];
+       char ch;
+       for(int i=0;i<s.length();i++)
+       {
+           ch=s.charAt(i);
+           if(ch>='a' && ch<='z')
+            pos[ch-'a']++;
+           else if(ch>='A' && ch<='Z')
+            pos[ch-'A']++;
+       }
+       for(int i=0;i<26;i++)
+       {
+           if(pos[i]==0)
+            return false;
+       }
+       return true;
+    }
+}
+//Time Complexity:O(n)
+//Space Complexity:O(1)
+
+//Other method
+//TC:O(n)
+//SC:O(n)
+class Solution
+{
+    //Function to check if a string is Pangram or not.
+    public static boolean checkPangram  (String s) {
+        char ch;
+        String str=s.toLowerCase();
+        HashSet<Character> set=new HashSet<>();
+        for(int i=0;i<str.length();i++)
+        {
+          ch=str.charAt(i);
+          if(ch>=97&&ch<=122)
+           set.add(ch);
+        }
+        if(set.size()==26)
+         return true;
+        else
+         return false;
+    }
+}
