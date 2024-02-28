@@ -30,10 +30,15 @@ class Solution{
     int DivisibleByEight(String s){
         //if the last three numbers are 0 or divisible by 8 
         // then whole number is divisible by 8
+
         s="00"+s;
         int n=Integer.parseInt(s.substring(s.length()-3));
+        return (n==0 || n%8==0)?1:-1;
+       
+        /*
         if(n==0 || n%8==0)
             return 1;
-        return -1;    
+        return -1;  
+        */
     }
 }
