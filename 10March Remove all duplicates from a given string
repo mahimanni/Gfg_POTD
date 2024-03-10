@@ -1,0 +1,62 @@
+/*
+Given a string str which may contains lowercase and uppercase chracters.
+The task is to remove all duplicate characters from the string and find the resultant string. 
+The order of remaining characters in the output should be same as in the original string.
+
+Example 1:
+Input:
+str = "geEksforGEeks"
+Output: 
+"geEksforG"
+Explanation: 
+After removing duplicate characters such as E, e, k, s, we have string as "geEksforG".
+
+Example 2:
+Input:
+str = "HaPpyNewYear"
+Output: 
+"HaPpyNewYr"
+Explanation: 
+After removing duplicate characters such as e, a, we have string as "HaPpyNewYr".
+
+Expected Time Complexity: O(N)
+Expected Auxiliary Space: O(N)
+
+Constraints:
+1 ≤ N ≤ 105
+String contains uppercase and lowercase english letters.
+*/
+
+class Solution {
+    String removeDuplicates(String str) {
+        int freqa[]=new int[26];
+        int freqA[]=new int[26];
+        String ans="";
+        
+        for(int i=0;i<str.length();i++)
+        {
+            char ch=str.charAt(i);
+            if(Character.isLowerCase(ch))
+                freqa[ch-'a']=1;
+            else
+                freqA[ch-'A']=1;
+        }
+        
+        for(int i=0;i<str.length();i++)
+        {
+            char ch=str.charAt(i);
+            if(Character.isLowerCase(ch) && freqa[ch-'a']==1)
+            {
+                ans+=ch;
+                freqa[ch-'a']=0;
+            }    
+            else if(Character.isUpperCase(ch) && freqA[ch-'A']==1)
+            {
+                ans+=ch;
+                freqA[ch-'A']=0;
+            }
+        }
+        
+        return ans;
+    }
+}
